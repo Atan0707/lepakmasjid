@@ -3,7 +3,6 @@ import { Helmet } from 'react-helmet-async';
 import { useNavigate } from 'react-router-dom';
 import Header from '@/components/Header';
 import HeroSection from '@/components/HeroSection';
-import StatsSection from '@/components/StatsSection';
 import FeaturedMosques from '@/components/FeaturedMosques';
 import CTASection from '@/components/CTASection';
 import Footer from '@/components/Footer';
@@ -43,7 +42,6 @@ const Index = () => {
             onSearchChange={setSearchQuery}
             onSearch={handleSearch}
           />
-          <StatsSection />
           <FeaturedMosques />
           <CTASection />
         </main>
