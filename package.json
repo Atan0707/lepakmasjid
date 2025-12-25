@@ -12,7 +12,8 @@
     "test:connection": "node scripts/test-connection.js",
     "test:schema": "node scripts/verify-schema.js",
     "test:submission": "node scripts/test-submission.js",
-    "setup:collections": "node scripts/create-collections.js"
+    "setup:collections": "node scripts/create-collections.js",
+    "seed:data": "node scripts/seed-data.js"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",

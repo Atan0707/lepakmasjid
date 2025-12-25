@@ -221,20 +221,56 @@ This interactive script will:
 4. Optionally test admin approval
 5. Clean up test data
 
-## Step 7: Create Initial Data
+## Step 7: Seed Sample Data
 
-### Seed Amenities
+### Automated Seeding (Recommended)
 
-Create initial amenities in the `amenities` collection:
+Seed the database with sample mosque data using the seed script:
+
+```bash
+npm run seed:data
+```
+
+This script will:
+- ✅ Create amenities if they don't exist
+- ✅ Create 10 sample mosques from different Malaysian states
+- ✅ Link amenities to mosques
+- ✅ Set all mosques to "approved" status
+- ✅ Skip mosques that already exist (idempotent)
+
+**Using Environment Variables (Optional):**
+
+You can set admin credentials in `.env.local` to avoid prompts:
+
+```env
+POCKETBASE_ADMIN_EMAIL=your-admin@email.com
+POCKETBASE_ADMIN_PASSWORD=your-admin-password
+```
+
+**Sample Mosques Included:**
+- Masjid Negara (Kuala Lumpur)
+- Masjid Sultan Salahuddin Abdul Aziz Shah (Selangor)
+- Masjid Jamek Sultan Abdul Samad (Kuala Lumpur)
+- Masjid Putra (Putrajaya)
+- Masjid Wilayah Persekutuan (Kuala Lumpur)
+- Masjid Kapitan Keling (Penang)
+- Masjid Sultan Abu Bakar (Johor)
+- Masjid Ubudiah (Perak)
+- Masjid Zahir (Kedah)
+- Masjid Kristal (Terengganu)
+
+### Manual Seeding
+
+If you prefer to create amenities manually, here are example amenities:
 
 ```javascript
 // Example amenities to create
 [
   { key: 'parking', label_en: 'Parking', label_bm: 'Tempat Letak Kereta', icon: 'car', order: 1 },
-  { key: 'wudu', label_en: 'Wudu Facilities', label_bm: 'Kemudahan Wuduk', icon: 'droplet', order: 2 },
-  { key: 'prayer_hall', label_en: 'Prayer Hall', label_bm: 'Dewan Solat', icon: 'building', order: 3 },
-  { key: 'library', label_en: 'Library', label_bm: 'Perpustakaan', icon: 'book', order: 4 },
-  { key: 'canteen', label_en: 'Canteen', label_bm: 'Kantin', icon: 'utensils', order: 5 },
+  { key: 'wudhu', label_en: 'Wudhu Area', label_bm: 'Tempat Wuduk', icon: 'droplet', order: 2 },
+  { key: 'library', label_en: 'Library', label_bm: 'Perpustakaan', icon: 'book', order: 3 },
+  { key: 'cafe', label_en: 'Café/Canteen', label_bm: 'Kafe/Kantin', icon: 'utensils', order: 4 },
+  { key: 'wifi', label_en: 'Free WiFi', label_bm: 'WiFi Percuma', icon: 'wifi', order: 5 },
   // Add more as needed
 ]
 ```
@@ -278,7 +314,7 @@ Once setup is complete:
 3. ✅ Verify schema: `npm run test:schema`
 4. ✅ Configure Google OAuth
 5. ✅ Test submission workflow: `npm run test:submission`
-6. ✅ Seed initial amenities data
+6. ✅ Seed sample data: `npm run seed:data`
 7. ✅ Start development: `npm run dev`
 
 ## Additional Resources

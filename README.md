@@ -117,6 +117,7 @@ src/
 - `pnpm setup:collections` - Create all required PocketBase collections
 - `pnpm test:schema` - Verify PocketBase collections match PRD schema
 - `pnpm test:submission` - Test submission workflow end-to-end
+- `pnpm seed:data` - Seed database with sample mosque data (10 mosques)
 
 ## PocketBase Setup
 
@@ -146,6 +147,12 @@ The application connects to a deployed PocketBase instance at `pb.muazhazali.me`
    ```powershell
    npm run test:submission
    ```
+
+6. **Seed Sample Data**: Populate the database with sample mosque data
+   ```powershell
+   npm run seed:data
+   ```
+   This will create 10 sample mosques from different Malaysian states with amenities and descriptions.
 
 For detailed setup instructions, see:
 - [Connecting to Remote PocketBase](./docs/CONNECT_REMOTE_POCKETBASE.md) - How to connect your local app to a remote PocketBase instance
