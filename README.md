@@ -157,6 +157,7 @@ The application connects to a deployed PocketBase instance at `pb.muazhazali.me`
 For detailed setup instructions, see:
 - [Connecting to Remote PocketBase](./docs/CONNECT_REMOTE_POCKETBASE.md) - How to connect your local app to a remote PocketBase instance
 - [PocketBase Setup Guide](./docs/POCKETBASE_SETUP.md) - Detailed PocketBase configuration
+- [Cloudflare Deployment Guide](./docs/CLOUDFLARE_DEPLOYMENT.md) - Step-by-step guide to deploy to Cloudflare Pages
 
 ## Contributing
 
