@@ -15,9 +15,6 @@ const MosqueCard = ({ mosque, onClick }: MosqueCardProps) => {
   const { language } = useLanguageStore();
   
   const displayName = language === 'bm' && mosque.name_bm ? mosque.name_bm : mosque.name;
-  const displayDescription = language === 'bm' && mosque.description_bm 
-    ? mosque.description_bm 
-    : mosque.description;
   
   // Get image URL for the mosque
   const imageUrl = getImageUrl(mosque as any, mosque.image, '400x300');
@@ -117,13 +114,6 @@ const MosqueCard = ({ mosque, onClick }: MosqueCardProps) => {
               {mosque.address}
             </p>
           </div>
-
-          {/* Description */}
-          {displayDescription && (
-            <p className="text-sm text-muted-foreground line-clamp-2">
-              {displayDescription}
-            </p>
-          )}
 
           {/* Amenities */}
           {allAmenities.length > 0 && (

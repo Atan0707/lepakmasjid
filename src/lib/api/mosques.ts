@@ -211,12 +211,32 @@ export const mosquesApi = {
         })) as MosqueAmenity[];
       
       // Fetch activities
-      const activitiesResult = await pb.collection('activities').getList(1, 100, {
-        filter: `mosque_id = "${id}" && status = "active"`,
-        sort: '-created',
-      });
-      
-      const activities = activitiesResult.items as unknown as Activity[];
+      // Try with status filter first, fallback to client-side filtering if it fails
+      let activities: Activity[] = [];
+      try {
+        const activitiesResult = await pb.collection('activities').getList(1, 100, {
+          filter: `mosque_id = "${id}" && status = "active"`,
+          sort: '-created',
+        });
+        activities = activitiesResult.items as unknown as Activity[];
+      } catch (activitiesError: any) {
+        // If filter fails, try without status filter and filter client-side
+        console.warn('Activities filter failed, trying without status filter:', activitiesError);
+        try {
+          const activitiesResult = await pb.collection('activities').getList(1, 100, {
+            filter: `mosque_id = "${id}"`,
+            sort: '-created',
+          });
+          // Filter client-side to only show active activities
+          activities = (activitiesResult.items as unknown as Activity[]).filter(
+            (activity) => activity.status === 'active'
+          );
+        } catch (fallbackError: any) {
+          // If that also fails, just log and continue without activities
+          console.warn('Failed to fetch activities:', fallbackError);
+          activities = [];
+        }
+      }
       
       return {
         ...mosque,
