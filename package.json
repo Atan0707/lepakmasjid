@@ -16,7 +16,8 @@
     "setup:role-field": "node scripts/add-role-field.js",
     "setup:admin": "node scripts/set-admin-role.js",
     "fix:permissions": "node scripts/fix-permissions.js",
-    "seed:data": "node scripts/seed-data.js"
+    "seed:data": "node scripts/seed-data.js",
+    "add:image-field": "node scripts/add-image-field-to-submissions.js"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",

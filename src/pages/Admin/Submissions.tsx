@@ -357,16 +357,19 @@ const EditComparison = ({ submission }: { submission: Submission }) => {
                     </div>
                   );
                 })}
-                {currentMosque.image && (
-                  <div>
-                    <p className="text-sm font-medium mb-2">{t('mosque.image')}:</p>
+                {/* Current Image */}
+                <div className={submissionRecord.image ? 'bg-red-50 dark:bg-red-950/20 p-2 rounded border border-red-200 dark:border-red-800' : ''}>
+                  <p className="text-sm font-medium mb-2">{t('mosque.image')}:</p>
+                  {currentMosque.image ? (
                     <img
                       src={getImageUrl(currentMosque, currentMosque.image, '200x200', 'mosques') || ''}
                       alt={currentMosque.name}
                       className="max-w-xs rounded-lg border border-border"
                     />
-                  </div>
-                )}
+                  ) : (
+                    <p className="text-sm text-muted-foreground">No image</p>
+                  )}
+                </div>
                 
                 {/* Current Amenities */}
                 <div className="pt-4 border-t">
@@ -402,16 +405,21 @@ const EditComparison = ({ submission }: { submission: Submission }) => {
                     </div>
                   );
                 })}
-                {submissionRecord.image && (
-                  <div>
-                    <p className="text-sm font-medium mb-2">{t('mosque.image')}:</p>
+                {/* Proposed Image */}
+                <div className={(submissionRecord.image || currentMosque.image) ? 'bg-green-50 dark:bg-green-950/20 p-2 rounded border border-green-200 dark:border-green-800' : ''}>
+                  <p className="text-sm font-medium mb-2">{t('mosque.image')}:</p>
+                  {submissionRecord.image ? (
                     <img
                       src={getImageUrl(submissionRecord, submissionRecord.image, '200x200', 'submissions') || ''}
                       alt={proposedData.name || 'Proposed mosque image'}
                       className="max-w-xs rounded-lg border border-border"
                     />
-                  </div>
-                )}
+                  ) : currentMosque.image ? (
+                    <p className="text-sm text-muted-foreground">No new image (keeping current)</p>
+                  ) : (
+                    <p className="text-sm text-muted-foreground">No image</p>
+                  )}
+                </div>
                 
                 {/* Proposed Amenities */}
                 <div className="pt-4 border-t">
@@ -475,16 +483,18 @@ const EditComparison = ({ submission }: { submission: Submission }) => {
                 <p className="text-sm text-muted-foreground ml-4">{currentMosque.description_bm}</p>
               </div>
             )}
-            {currentMosque.image && (
-              <div>
-                <p><strong>{t('mosque.image')}:</strong></p>
+            <div>
+              <p><strong>{t('mosque.image')}:</strong></p>
+              {currentMosque.image ? (
                 <img
                   src={getImageUrl(currentMosque, currentMosque.image, '300x300', 'mosques') || ''}
                   alt={currentMosque.name}
                   className="mt-2 max-w-xs rounded-lg border border-border"
                 />
-              </div>
-            )}
+              ) : (
+                <p className="text-sm text-muted-foreground mt-2">No image</p>
+              )}
+            </div>
             <div className="pt-4 border-t">
               <p><strong>{t('mosque.amenities')}:</strong></p>
               {currentAmenities.length === 0 ? (
@@ -522,16 +532,18 @@ const EditComparison = ({ submission }: { submission: Submission }) => {
                 <p className="text-sm text-muted-foreground ml-4">{proposedData.description_bm}</p>
               </div>
             )}
-            {submissionRecord.image && (
-              <div>
-                <p><strong>{t('mosque.image')}:</strong></p>
+            <div>
+              <p><strong>{t('mosque.image')}:</strong></p>
+              {submissionRecord.image ? (
                 <img
                   src={getImageUrl(submissionRecord, submissionRecord.image, '300x300', 'submissions') || ''}
                   alt={proposedData.name || 'Proposed mosque image'}
                   className="mt-2 max-w-xs rounded-lg border border-border"
                 />
-              </div>
-            )}
+              ) : (
+                <p className="text-sm text-muted-foreground mt-2">No new image</p>
+              )}
+            </div>
             <div className="pt-4 border-t">
               <p><strong>{t('mosque.amenities')}:</strong></p>
               {(proposedAmenities.length === 0 && proposedCustomAmenities.length === 0) ? (
