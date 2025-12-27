@@ -70,18 +70,26 @@ export const submissionsApi = {
 
     // If we have an image file, use FormData to upload
     if (imageFile) {
-      // Remove image from data object (it's a File, not a string)
-      const { image, ...dataWithoutImage } = submissionData.data as Record<string, any>;
+      // Ensure data is an object and remove any image reference from it
+      const submissionDataObj = (submissionData.data as Record<string, any>) || {};
+      const { image, ...dataWithoutImage } = submissionDataObj;
       
-      // Create FormData with submission data and image
+      // Create FormData - build it similar to createFormDataWithImage but adapted for submissions
       const formData = new FormData();
       
-      // Add all submission fields
+      // Add all submission top-level fields (excluding data)
+      // These are: type, mosque_id, status, submitted_by, submitted_at, etc.
       Object.entries(submissionData).forEach(([key, value]) => {
         if (key !== 'data' && value !== null && value !== undefined) {
           if (value instanceof Date) {
             formData.append(key, value.toISOString());
+          } else if (typeof value === 'string') {
+            // Strings (including relation IDs) should be sent as-is
+            formData.append(key, value);
+          } else if (typeof value === 'number' || typeof value === 'boolean') {
+            formData.append(key, String(value));
           } else if (typeof value === 'object' && !(value instanceof File)) {
+            // For objects/arrays, stringify them
             formData.append(key, JSON.stringify(value));
           } else {
             formData.append(key, String(value));
@@ -89,10 +97,12 @@ export const submissionsApi = {
         }
       });
       
-      // Add data field as JSON (without image)
+      // Add the data field as JSON string (PocketBase JSON field type requires stringified JSON)
+      // This contains the mosque data (name, address, lat, lng, etc.) without the image
       formData.append('data', JSON.stringify(dataWithoutImage));
       
-      // Add the image file
+      // Add the image file - must be appended as a File object
+      // PocketBase will handle the file upload automatically
       formData.append('image', imageFile);
       
       return await pb.collection('submissions').create(formData) as unknown as Submission;
@@ -133,10 +143,10 @@ export const submissionsApi = {
       }
     }
     
-    // Force status to pending for new submissions (admin must approve separately)
+    // When approving a submission, create the mosque with approved status
     // For edits, preserve existing status unless explicitly changed
     if (submission.type === 'new_mosque') {
-      sanitizedData.status = 'pending';
+      sanitizedData.status = 'approved'; // Mosque is approved when admin approves the submission
       sanitizedData.created_by = submission.submitted_by;
     }
     
