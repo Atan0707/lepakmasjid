@@ -325,7 +325,9 @@ export const translations = {
     'about.add_mosque_button': 'Add a Mosque',
     'about.view_on_github': 'View on GitHub',
     'about.contact_title': 'Get in Touch',
-    'about.contact_content': 'Have questions, suggestions, or want to contribute? Visit our GitHub repository to get involved or report issues.',
+    'about.contact_content': 'Have questions, suggestions, or want to contribute? We\'d love to hear from you!',
+    'about.contact_email_info': 'Email us at hello@lepakmasjid.app for suggestions, collaboration, donations, or anything else.',
+    'about.contact_email': 'Contact Us',
     'about.visit_github': 'Visit GitHub',
     
     // Privacy Policy
@@ -756,7 +758,9 @@ export const translations = {
     'about.add_mosque_button': 'Tambah Masjid',
     'about.view_on_github': 'Lihat di GitHub',
     'about.contact_title': 'Hubungi Kami',
-    'about.contact_content': 'Ada soalan, cadangan, atau ingin menyumbang? Lawati repositori GitHub kami untuk terlibat atau melaporkan isu.',
+    'about.contact_content': 'Ada soalan, cadangan, atau ingin menyumbang? Kami ingin mendengar daripada anda!',
+    'about.contact_email_info': 'E-mel kami di hello@lepakmasjid.app untuk cadangan, kolaborasi, derma, atau apa sahaja.',
+    'about.contact_email': 'Hubungi Kami',
     'about.visit_github': 'Lawati GitHub',
     
     // Privacy Policy

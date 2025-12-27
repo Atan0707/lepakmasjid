@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { MapPin, Github, Twitter, Mail } from 'lucide-react';
+import { MapPin, Github, Mail } from 'lucide-react';
 import { useTranslation } from '@/hooks/use-translation';
 
 const Footer = () => {
@@ -32,14 +32,7 @@ const Footer = () => {
                 <Github className="h-5 w-5" />
               </a>
               <a 
-                href="#" 
-                className="p-2 rounded-lg bg-secondary hover:bg-primary hover:text-primary-foreground transition-colors"
-                aria-label="Twitter"
-              >
-                <Twitter className="h-5 w-5" />
-              </a>
-              <a 
-                href="#" 
+                href="mailto:hello@lepakmasjid.app" 
                 className="p-2 rounded-lg bg-secondary hover:bg-primary hover:text-primary-foreground transition-colors"
                 aria-label="Email"
               >

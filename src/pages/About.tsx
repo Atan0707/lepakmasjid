@@ -4,7 +4,7 @@ import Header from '@/components/Header';
 import Footer from '@/components/Footer';
 import { SkipLink } from '@/components/SkipLink';
 import { useTranslation } from '@/hooks/use-translation';
-import { MapPin, Users, Heart, Code, Github } from 'lucide-react';
+import { MapPin, Users, Heart, Code, Github, Mail } from 'lucide-react';
 
 const About = () => {
   const { t } = useTranslation();
@@ -130,18 +130,30 @@ const About = () => {
                 <h2 className="text-2xl lg:text-3xl font-bold mb-4">
                   {t('about.contact_title')}
                 </h2>
-                <p className="text-lg text-muted-foreground mb-6">
+                <p className="text-lg text-muted-foreground mb-4">
                   {t('about.contact_content')}
                 </p>
-                <a
-                  href="https://github.com/muazhazali/lepakmasjid"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors font-medium"
-                >
-                  <Github className="h-5 w-5" />
-                  {t('about.visit_github')}
-                </a>
+                <p className="text-base text-muted-foreground mb-6">
+                  {t('about.contact_email_info')}
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <a
+                    href="mailto:hello@lepakmasjid.app"
+                    className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-primary text-primary-foreground rounded-lg hover:bg-primary/90 transition-colors font-medium"
+                  >
+                    <Mail className="h-5 w-5" />
+                    {t('about.contact_email')}
+                  </a>
+                  <a
+                    href="https://github.com/muazhazali/lepakmasjid"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-secondary text-foreground rounded-lg hover:bg-secondary/80 transition-colors font-medium"
+                  >
+                    <Github className="h-5 w-5" />
+                    {t('about.visit_github')}
+                  </a>
+                </div>
               </div>
             </section>
           </div>
