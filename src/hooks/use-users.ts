@@ -60,3 +60,32 @@ export const useUpdateUser = () => {
   });
 };
 
+export const useUpdateProfile = () => {
+  const queryClient = useQueryClient();
+  
+  return useMutation({
+    mutationFn: (data: { name?: string; email?: string }) => usersApi.updateProfile(data),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: usersKeys.all });
+      // Refresh auth store to get updated user data
+      queryClient.invalidateQueries({ queryKey: ['auth'] });
+    },
+  });
+};
+
+export const useUpdatePassword = () => {
+  return useMutation({
+    mutationFn: ({ oldPassword, newPassword, passwordConfirm }: { 
+      oldPassword: string; 
+      newPassword: string; 
+      passwordConfirm: string;
+    }) => usersApi.updatePassword(oldPassword, newPassword, passwordConfirm),
+  });
+};
+
+export const useRequestPasswordReset = () => {
+  return useMutation({
+    mutationFn: (email: string) => usersApi.requestPasswordReset(email),
+  });
+};
+

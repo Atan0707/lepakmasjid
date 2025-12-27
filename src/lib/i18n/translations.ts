@@ -6,6 +6,7 @@ export const translations = {
     'nav.about': 'About',
     'nav.add_mosque': 'Add Mosque',
     'nav.admin': 'Admin',
+    'nav.profile': 'Profile',
     
     // Auth
     'auth.login': 'Login',
@@ -230,6 +231,30 @@ export const translations = {
     'admin.approved': 'Approved',
     'admin.rejected': 'Rejected',
     
+    // Profile
+    'profile.title': 'My Profile',
+    'profile.meta_description': 'Manage your profile and view your submissions',
+    'profile.profile_tab': 'Profile',
+    'profile.submissions_tab': 'My Submissions',
+    'profile.profile_information': 'Profile Information',
+    'profile.profile_information_desc': 'Update your name and email address',
+    'profile.change_password': 'Change Password',
+    'profile.change_password_desc': 'Update your password to keep your account secure',
+    'profile.current_password': 'Current Password',
+    'profile.new_password': 'New Password',
+    'profile.update_password': 'Update Password',
+    'profile.update_success': 'Profile updated successfully',
+    'profile.update_failed': 'Failed to update profile',
+    'profile.password_update_success': 'Password updated successfully',
+    'profile.password_update_failed': 'Failed to update password',
+    'profile.current_password_required': 'Current password is required',
+    'profile.total_submissions': 'Total Submissions',
+    'profile.submitted_at': 'Submitted',
+    'profile.reviewed_at': 'Reviewed',
+    'profile.all': 'All',
+    'profile.no_submissions': 'You have not submitted any mosques yet.',
+    'profile.no_submissions_status': 'No {status} submissions',
+    
     // Meta & SEO
     'meta.home_title': 'lepakmasjid - Find Mosques with Facilities You Need',
     'meta.home_description': 'Discover mosques in Malaysia with WiFi, working spaces, accessibility features, and more. Community-powered mosque directory for travelers and remote workers.',
@@ -367,6 +392,7 @@ export const translations = {
     'nav.about': 'Tentang',
     'nav.add_mosque': 'Tambah Masjid',
     'nav.admin': 'Pentadbir',
+    'nav.profile': 'Profil',
     
     // Auth
     'auth.login': 'Log Masuk',
@@ -591,6 +617,30 @@ export const translations = {
     'admin.approved': 'Diluluskan',
     'admin.rejected': 'Ditolak',
     'admin.status': 'status',
+    
+    // Profile
+    'profile.title': 'Profil Saya',
+    'profile.meta_description': 'Urus profil anda dan lihat penyerahan anda',
+    'profile.profile_tab': 'Profil',
+    'profile.submissions_tab': 'Penyerahan Saya',
+    'profile.profile_information': 'Maklumat Profil',
+    'profile.profile_information_desc': 'Kemaskini nama dan alamat e-mel anda',
+    'profile.change_password': 'Tukar Kata Laluan',
+    'profile.change_password_desc': 'Kemaskini kata laluan anda untuk menjaga keselamatan akaun',
+    'profile.current_password': 'Kata Laluan Semasa',
+    'profile.new_password': 'Kata Laluan Baru',
+    'profile.update_password': 'Kemaskini Kata Laluan',
+    'profile.update_success': 'Profil dikemaskini berjaya',
+    'profile.update_failed': 'Gagal mengemaskini profil',
+    'profile.password_update_success': 'Kata laluan dikemaskini berjaya',
+    'profile.password_update_failed': 'Gagal mengemaskini kata laluan',
+    'profile.current_password_required': 'Kata laluan semasa diperlukan',
+    'profile.total_submissions': 'Jumlah Penyerahan',
+    'profile.submitted_at': 'Dihantar',
+    'profile.reviewed_at': 'Disemak',
+    'profile.all': 'Semua',
+    'profile.no_submissions': 'Anda belum menghantar sebarang masjid lagi.',
+    'profile.no_submissions_status': 'Tiada penyerahan {status}',
     
     // Meta & SEO
     'meta.home_title': 'lepakmasjid - Cari Masjid dengan Kemudahan yang Anda Perlukan',

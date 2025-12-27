@@ -24,6 +24,28 @@ export const submissionsApi = {
     return result.items as unknown as Submission[];
   },
 
+  // List current user's submissions
+  async listMySubmissions(status?: 'pending' | 'approved' | 'rejected'): Promise<Submission[]> {
+    if (!pb.authStore.model) {
+      throw new Error('User not authenticated');
+    }
+    
+    let filter = `submitted_by = "${pb.authStore.model.id}"`;
+    if (status) {
+      // Validate status against allowlist to prevent filter injection
+      if (!validateSubmissionStatus(status)) {
+        throw new Error('Invalid status parameter');
+      }
+      filter += ` && status = "${status}"`;
+    }
+    
+    const result = await pb.collection('submissions').getList(1, 100, {
+      filter,
+      sort: '-submitted_at',
+    });
+    return result.items as unknown as Submission[];
+  },
+
   // Get single submission
   async get(id: string): Promise<Submission> {
     // Validate ID format to prevent injection

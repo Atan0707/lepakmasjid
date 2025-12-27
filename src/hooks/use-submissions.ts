@@ -18,6 +18,14 @@ export const useSubmissions = (status?: 'pending' | 'approved' | 'rejected') => 
   });
 };
 
+export const useMySubmissions = (status?: 'pending' | 'approved' | 'rejected') => {
+  return useQuery({
+    queryKey: ['submissions', 'my', status],
+    queryFn: () => submissionsApi.listMySubmissions(status),
+    staleTime: 1 * 60 * 1000,
+  });
+};
+
 export const useSubmission = (id: string | null) => {
   return useQuery({
     queryKey: submissionsKeys.detail(id || ''),

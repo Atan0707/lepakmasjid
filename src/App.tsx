@@ -9,6 +9,7 @@ import Index from "./pages/Index";
 import Explore from "./pages/Explore";
 import MosqueDetail from "./pages/MosqueDetail";
 import Submit from "./pages/Submit";
+import Profile from "./pages/Profile";
 import About from "./pages/About";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 import TermsOfUse from "./pages/TermsOfUse";
@@ -46,6 +47,7 @@ const App = () => {
               <Route path="/explore" element={<Explore />} />
               <Route path="/mosque/:id" element={<MosqueDetail />} />
               <Route path="/submit" element={<Submit />} />
+              <Route path="/profile" element={<Profile />} />
               <Route path="/about" element={<About />} />
               <Route path="/privacy" element={<PrivacyPolicy />} />
               <Route path="/terms" element={<TermsOfUse />} />

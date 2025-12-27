@@ -109,6 +109,10 @@ const Header = () => {
                       </div>
                     </DropdownMenuLabel>
                     <DropdownMenuSeparator />
+                    <DropdownMenuItem onClick={() => navigate('/profile')}>
+                      <User className="mr-2 h-4 w-4" />
+                      {t('nav.profile')}
+                    </DropdownMenuItem>
                     <DropdownMenuItem onClick={() => navigate('/submit')}>
                       <Settings className="mr-2 h-4 w-4" />
                       {t('nav.add_mosque')}
