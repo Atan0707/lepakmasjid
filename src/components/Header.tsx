@@ -26,12 +26,11 @@ const Header = () => {
   const navigate = useNavigate();
 
   const handleToggleTheme = () => {
-    if (theme === 'light') {
-      setTheme('dark');
-    } else if (theme === 'dark') {
-      setTheme('system');
-    } else {
+    // Toggle directly between light and dark, ignoring system preference
+    if (isDark) {
       setTheme('light');
+    } else {
+      setTheme('dark');
     }
   };
 
