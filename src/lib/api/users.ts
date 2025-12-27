@@ -1,5 +1,6 @@
 import { pb } from '../pocketbase';
 import type { User } from '@/types';
+import { logAuditEvent, createEntitySnapshot } from '../audit-logger';
 
 export const usersApi = {
   // List users (admin only)
@@ -58,7 +59,28 @@ export const usersApi = {
 
   // Update user
   async update(id: string, data: Partial<User>): Promise<User> {
-    return await pb.collection('users').update(id, data) as unknown as User;
+    // Get before state for audit log
+    let beforeState: Record<string, unknown> | null = null;
+    try {
+      const existing = await pb.collection('users').getOne(id);
+      beforeState = createEntitySnapshot(existing);
+    } catch (error) {
+      // If we can't get the before state, continue anyway
+      console.warn('Could not fetch before state for audit log:', error);
+    }
+
+    const updatedUser = await pb.collection('users').update(id, data) as unknown as User;
+
+    // Log audit event
+    await logAuditEvent(
+      'update',
+      'user',
+      id,
+      beforeState,
+      createEntitySnapshot(updatedUser)
+    );
+
+    return updatedUser;
   },
 
   // Update current user profile (name, email)
@@ -94,7 +116,27 @@ export const usersApi = {
 
   // Delete user
   async delete(id: string): Promise<boolean> {
+    // Get before state for audit log
+    let beforeState: Record<string, unknown> | null = null;
+    try {
+      const existing = await pb.collection('users').getOne(id);
+      beforeState = createEntitySnapshot(existing);
+    } catch (error) {
+      // If we can't get the before state, continue anyway
+      console.warn('Could not fetch before state for audit log:', error);
+    }
+
     await pb.collection('users').delete(id);
+
+    // Log audit event
+    await logAuditEvent(
+      'delete',
+      'user',
+      id,
+      beforeState,
+      null
+    );
+
     return true;
   },
 };

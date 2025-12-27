@@ -6,6 +6,7 @@ import { validateImageFile, createFormDataWithImage, getImageFileFromRecord } fr
 import { mosquesApi } from './mosques';
 import { amenitiesApi, mosqueAmenitiesApi } from './amenities';
 import { activitiesApi } from './activities';
+import { logAuditEvent, createEntitySnapshot } from '../audit-logger';
 
 export const submissionsApi = {
   // List submissions (admin only)
@@ -122,7 +123,18 @@ export const submissionsApi = {
     }
 
     // Otherwise, create normally without image
-    return await pb.collection('submissions').create(submissionData) as unknown as Submission;
+    const createdSubmission = await pb.collection('submissions').create(submissionData) as unknown as Submission;
+
+    // Log audit event
+    await logAuditEvent(
+      'create',
+      'submission',
+      createdSubmission.id,
+      null,
+      createEntitySnapshot(createdSubmission)
+    );
+
+    return createdSubmission;
   },
 
   // Update submission (approve/reject)
@@ -133,6 +145,9 @@ export const submissionsApi = {
   // Approve submission
   async approve(id: string, reviewedBy: string): Promise<Submission> {
     const submission = await this.get(id);
+    
+    // Get before state for audit log
+    const beforeState = createEntitySnapshot(submission);
     
     // Whitelist of allowed fields for mosque creation/update
     // This prevents mass assignment attacks where malicious fields could be injected
@@ -320,21 +335,47 @@ export const submissionsApi = {
     }
     
     // Update submission status
-    return await this.update(id, {
+    const updatedSubmission = await this.update(id, {
       status: 'approved',
       reviewed_by: reviewedBy,
       reviewed_at: new Date().toISOString(),
     });
+
+    // Log audit event
+    await logAuditEvent(
+      'approve',
+      'submission',
+      id,
+      beforeState,
+      createEntitySnapshot(updatedSubmission)
+    );
+
+    return updatedSubmission;
   },
 
   // Reject submission
   async reject(id: string, reviewedBy: string, reason: string): Promise<Submission> {
-    return await this.update(id, {
+    // Get before state for audit log
+    const submission = await this.get(id);
+    const beforeState = createEntitySnapshot(submission);
+
+    const updatedSubmission = await this.update(id, {
       status: 'rejected',
       reviewed_by: reviewedBy,
       reviewed_at: new Date().toISOString(),
       rejection_reason: reason,
     });
+
+    // Log audit event
+    await logAuditEvent(
+      'reject',
+      'submission',
+      id,
+      beforeState,
+      createEntitySnapshot(updatedSubmission)
+    );
+
+    return updatedSubmission;
   },
 };
 

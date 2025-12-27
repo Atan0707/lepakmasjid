@@ -164,7 +164,7 @@ async function main() {
     audit_logs: {
       listRule: '@request.auth.role = "admin"',
       viewRule: '@request.auth.role = "admin"',
-      createRule: '', // System can create
+      createRule: '@request.auth.id != ""', // Any authenticated user can create
       updateRule: null, // No updates allowed
       deleteRule: '@request.auth.role = "admin"',
     },

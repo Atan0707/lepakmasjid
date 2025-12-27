@@ -4,6 +4,7 @@ import type { Amenity, MosqueAmenity, Activity } from '@/types';
 import { createFormDataWithImage, validateImageFile } from '../pocketbase-images';
 import { validateState, sanitizeSearchTerm } from '../validation';
 import { sanitizeError } from '../error-handler';
+import { logAuditEvent, createEntitySnapshot } from '../audit-logger';
 
 // Helper function to fetch and attach activities to mosques
 async function attachActivitiesToMosques(mosques: Mosque[]): Promise<Mosque[]> {
@@ -493,18 +494,41 @@ export const mosquesApi = {
       }
     }
 
+    let createdMosque: Mosque;
+    
     // If we have an image file, use FormData
     if (imageFile) {
       const formData = createFormDataWithImage(data, imageFile, 'image');
-      return await pb.collection('mosques').create(formData) as unknown as Mosque;
+      createdMosque = await pb.collection('mosques').create(formData) as unknown as Mosque;
+    } else {
+      // Otherwise, create normally
+      createdMosque = await pb.collection('mosques').create(data) as unknown as Mosque;
     }
 
-    // Otherwise, create normally
-    return await pb.collection('mosques').create(data) as unknown as Mosque;
+    // Log audit event
+    await logAuditEvent(
+      'create',
+      'mosque',
+      createdMosque.id,
+      null,
+      createEntitySnapshot(createdMosque)
+    );
+
+    return createdMosque;
   },
 
   // Update mosque
   async update(id: string, data: Partial<Mosque>, imageFile?: File, deleteImage?: boolean): Promise<Mosque> {
+    // Get before state for audit log
+    let beforeState: Record<string, unknown> | null = null;
+    try {
+      const existing = await pb.collection('mosques').getOne(id);
+      beforeState = createEntitySnapshot(existing);
+    } catch (error) {
+      // If we can't get the before state, continue anyway
+      console.warn('Could not fetch before state for audit log:', error);
+    }
+
     // If image file is provided, validate it first
     if (imageFile) {
       const validationError = validateImageFile(imageFile);
@@ -513,25 +537,56 @@ export const mosquesApi = {
       }
     }
 
+    let updatedMosque: Mosque;
+
     // If we need to delete the image, set image field to empty string
     if (deleteImage) {
       const updateData = { ...data, image: '' };
-      return await pb.collection('mosques').update(id, updateData) as unknown as Mosque;
-    }
-
-    // If we have an image file, use FormData
-    if (imageFile) {
+      updatedMosque = await pb.collection('mosques').update(id, updateData) as unknown as Mosque;
+    } else if (imageFile) {
+      // If we have an image file, use FormData
       const formData = createFormDataWithImage(data, imageFile, 'image');
-      return await pb.collection('mosques').update(id, formData) as unknown as Mosque;
+      updatedMosque = await pb.collection('mosques').update(id, formData) as unknown as Mosque;
+    } else {
+      // Otherwise, update normally
+      updatedMosque = await pb.collection('mosques').update(id, data) as unknown as Mosque;
     }
 
-    // Otherwise, update normally
-    return await pb.collection('mosques').update(id, data) as unknown as Mosque;
+    // Log audit event
+    await logAuditEvent(
+      'update',
+      'mosque',
+      id,
+      beforeState,
+      createEntitySnapshot(updatedMosque)
+    );
+
+    return updatedMosque;
   },
 
   // Delete mosque
   async delete(id: string): Promise<boolean> {
+    // Get before state for audit log
+    let beforeState: Record<string, unknown> | null = null;
+    try {
+      const existing = await pb.collection('mosques').getOne(id);
+      beforeState = createEntitySnapshot(existing);
+    } catch (error) {
+      // If we can't get the before state, continue anyway
+      console.warn('Could not fetch before state for audit log:', error);
+    }
+
     await pb.collection('mosques').delete(id);
+
+    // Log audit event
+    await logAuditEvent(
+      'delete',
+      'mosque',
+      id,
+      beforeState,
+      null
+    );
+
     return true;
   },
 
