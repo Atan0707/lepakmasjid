@@ -11,7 +11,7 @@ const ContentPolicy = () => {
     <>
       <SkipLink />
       <Helmet>
-        <title>{t("content_policy.title")} - lepakmasjid</title>
+        <title>{t("content_policy.title")} - LepakMasjid</title>
         <meta
           name="description"
           content={t("content_policy.meta_description")}

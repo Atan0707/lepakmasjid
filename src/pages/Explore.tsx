@@ -135,7 +135,7 @@ const Explore = () => {
     <>
       <SkipLink />
       <Helmet>
-        <title>{t("explore.title")} - lepakmasjid</title>
+        <title>{t("explore.title")} - LepakMasjid</title>
         <meta name="description" content={t("explore.subtitle")} />
       </Helmet>
 

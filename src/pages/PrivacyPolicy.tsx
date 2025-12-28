@@ -11,7 +11,7 @@ const PrivacyPolicy = () => {
     <>
       <SkipLink />
       <Helmet>
-        <title>{t("privacy.title")} - lepakmasjid</title>
+        <title>{t("privacy.title")} - LepakMasjid</title>
         <meta name="description" content={t("privacy.meta_description")} />
       </Helmet>
 

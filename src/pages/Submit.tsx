@@ -545,7 +545,7 @@ const Submit = () => {
       <SkipLink />
       <Helmet>
         <title>
-          {editId ? t("meta.edit_title") : t("meta.submit_title")} - lepakmasjid
+          {editId ? t("meta.edit_title") : t("meta.submit_title")} - LepakMasjid
         </title>
       </Helmet>
 

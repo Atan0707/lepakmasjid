@@ -181,7 +181,7 @@ const Profile = () => {
   return (
     <AuthGuard>
       <Helmet>
-        <title>{t("profile.title")} - lepakmasjid</title>
+        <title>{t("profile.title")} - LepakMasjid</title>
         <meta name="description" content={t("profile.meta_description")} />
       </Helmet>
       <SkipLink />

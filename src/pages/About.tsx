@@ -13,7 +13,7 @@ const About = () => {
     <>
       <SkipLink />
       <Helmet>
-        <title>{t("about.title")} - lepakmasjid</title>
+        <title>{t("about.title")} - LepakMasjid</title>
         <meta name="description" content={t("about.meta_description")} />
       </Helmet>
 

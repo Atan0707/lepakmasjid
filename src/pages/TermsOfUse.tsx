@@ -11,7 +11,7 @@ const TermsOfUse = () => {
     <>
       <SkipLink />
       <Helmet>
-        <title>{t("terms.title")} - lepakmasjid</title>
+        <title>{t("terms.title")} - LepakMasjid</title>
         <meta name="description" content={t("terms.meta_description")} />
       </Helmet>
 

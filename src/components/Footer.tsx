@@ -138,7 +138,7 @@ const Footer = () => {
         {/* Bottom bar */}
         <div className="mt-12 pt-8 border-t border-border flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-sm text-muted-foreground">
-            © {new Date().getFullYear()} lepakmasjid. {t("footer.copyright")}
+            © {new Date().getFullYear()} LepakMasjid. {t("footer.copyright")}
           </p>
           <p className="text-sm text-muted-foreground">
             {t("footer.made_with")}

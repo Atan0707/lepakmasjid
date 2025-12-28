@@ -71,7 +71,7 @@ const MosqueDetail = () => {
     <>
       <SkipLink />
       <Helmet>
-        <title>{displayName} - lepakmasjid</title>
+        <title>{displayName} - LepakMasjid</title>
         <meta
           name="description"
           content={displayDescription || `Information about ${displayName}`}

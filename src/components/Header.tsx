@@ -5,7 +5,6 @@ import {
   X,
   Moon,
   Sun,
-  MapPin,
   User,
   LogOut,
   Settings,
@@ -55,11 +54,13 @@ const Header = () => {
           <div className="flex h-16 items-center justify-between">
             {/* Logo */}
             <Link to="/" className="flex items-center gap-2 group">
-              <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-primary text-primary-foreground shadow-soft group-hover:shadow-glow transition-shadow duration-300">
-                <MapPin className="h-5 w-5" />
-              </div>
+              <img 
+                src="/lepak-masjid-logo.png" 
+                alt="Lepak Masjid Logo" 
+                className="h-10 w-10 object-contain"
+              />
               <span className="font-display text-xl font-bold text-foreground">
-                lepak<span className="text-primary">masjid</span>
+                Lepak<span className="text-primary">Masjid</span>
               </span>
             </Link>
 

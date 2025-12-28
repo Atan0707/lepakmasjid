@@ -311,7 +311,7 @@ export const translations = {
     "profile.no_submissions_status": "No {status} submissions",
 
     // Meta & SEO
-    "meta.home_title": "lepakmasjid - Find Mosques with Facilities You Need",
+    "meta.home_title": "LepakMasjid - Find Mosques with Facilities You Need",
     "meta.home_description":
       "Discover mosques in Malaysia with WiFi, working spaces, accessibility features, and more. Community-powered mosque directory for travelers and remote workers.",
     "meta.submit_title": "Submit Mosque",
@@ -320,12 +320,12 @@ export const translations = {
     // About Page
     "about.title": "About Us",
     "about.meta_description":
-      "Learn about lepakmasjid, a community-powered mosque directory in Malaysia.",
+      "Learn about LepakMasjid, a community-powered mosque directory in Malaysia.",
     "about.subtitle":
       "Building a comprehensive, community-driven directory of mosques across Malaysia.",
     "about.mission_title": "Our Mission",
     "about.mission_content":
-      "lepakmasjid aims to help Muslims in Malaysia and visitors find mosques with the facilities they need. Whether you're looking for WiFi for remote work, accessibility features, sports facilities, or just a peaceful place to pray, our community-maintained directory makes it easy to discover the perfect mosque for your needs.",
+      "LepakMasjid aims to help Muslims in Malaysia and visitors find mosques with the facilities they need. Whether you're looking for WiFi for remote work, accessibility features, sports facilities, or just a peaceful place to pray, our community-maintained directory makes it easy to discover the perfect mosque for your needs.",
     "about.values_title": "Our Values",
     "about.community_title": "Community-Driven",
     "about.community_content":
@@ -335,7 +335,7 @@ export const translations = {
       "We prioritize making information about mosque facilities accessible to everyone, including those with mobility needs and special requirements.",
     "about.open_source_title": "Open Source",
     "about.open_source_content":
-      "lepakmasjid is open source, allowing the community to contribute, improve, and maintain the platform for everyone's benefit.",
+      "LepakMasjid is open source, allowing the community to contribute, improve, and maintain the platform for everyone's benefit.",
     "about.how_it_works_title": "How It Works",
     "about.how_it_works_content":
       "Community members submit information about mosques they know, including facilities, amenities, and activities. Our team of moderators reviews submissions to ensure accuracy before they're published. This collaborative approach ensures our directory stays current and comprehensive.",
@@ -355,11 +355,11 @@ export const translations = {
     // Privacy Policy
     "privacy.title": "Privacy Policy",
     "privacy.meta_description":
-      "Privacy Policy for lepakmasjid - Learn how we protect your personal information.",
+      "Privacy Policy for LepakMasjid - Learn how we protect your personal information.",
     "privacy.last_updated": "Last updated: January 2024",
     "privacy.introduction_title": "Introduction",
     "privacy.introduction_content":
-      "At lepakmasjid, we are committed to protecting your privacy. This Privacy Policy explains how we collect, use, and safeguard your personal information when you use our service.",
+      "At LepakMasjid, we are committed to protecting your privacy. This Privacy Policy explains how we collect, use, and safeguard your personal information when you use our service.",
     "privacy.data_collection_title": "Information We Collect",
     "privacy.data_collection_content":
       "We collect information that you provide directly to us, including:",
@@ -398,14 +398,14 @@ export const translations = {
     // Terms of Use
     "terms.title": "Terms of Use",
     "terms.meta_description":
-      "Terms of Use for lepakmasjid - Read our terms and conditions.",
+      "Terms of Use for LepakMasjid - Read our terms and conditions.",
     "terms.last_updated": "Last updated: January 2024",
     "terms.acceptance_title": "Acceptance of Terms",
     "terms.acceptance_content":
-      "By accessing and using lepakmasjid, you accept and agree to be bound by the terms and provision of this agreement. If you do not agree to these terms, please do not use our service.",
+      "By accessing and using LepakMasjid, you accept and agree to be bound by the terms and provision of this agreement. If you do not agree to these terms, please do not use our service.",
     "terms.use_license_title": "Use License",
     "terms.use_license_content":
-      "Permission is granted to temporarily use lepakmasjid for personal, non-commercial use. This license does not include:",
+      "Permission is granted to temporarily use LepakMasjid for personal, non-commercial use. This license does not include:",
     "terms.use_license_item1":
       "Modifying or copying materials for commercial purposes",
     "terms.use_license_item2":
@@ -425,16 +425,16 @@ export const translations = {
     "terms.user_conduct_item5": "Impersonate any person or entity",
     "terms.content_submission_title": "Content Submission",
     "terms.content_submission_content":
-      "By submitting content to lepakmasjid, you grant us a non-exclusive, royalty-free license to use, modify, and display your submission. You represent that you have the right to submit such content and that it does not violate any third-party rights.",
+      "By submitting content to LepakMasjid, you grant us a non-exclusive, royalty-free license to use, modify, and display your submission. You represent that you have the right to submit such content and that it does not violate any third-party rights.",
     "terms.intellectual_property_title": "Intellectual Property",
     "terms.intellectual_property_content":
-      "All content on lepakmasjid, including text, graphics, logos, and software, is the property of lepakmasjid or its content suppliers and is protected by copyright and other intellectual property laws.",
+      "All content on LepakMasjid, including text, graphics, logos, and software, is the property of LepakMasjid or its content suppliers and is protected by copyright and other intellectual property laws.",
     "terms.disclaimer_title": "Disclaimer",
     "terms.disclaimer_content":
-      'The information on lepakmasjid is provided on an "as is" basis. We make no warranties, expressed or implied, regarding the accuracy, reliability, or availability of the information provided.',
+      'The information on LepakMasjid is provided on an "as is" basis. We make no warranties, expressed or implied, regarding the accuracy, reliability, or availability of the information provided.',
     "terms.limitation_liability_title": "Limitation of Liability",
     "terms.limitation_liability_content":
-      "lepakmasjid shall not be liable for any indirect, incidental, special, consequential, or punitive damages resulting from your use or inability to use the service.",
+      "LepakMasjid shall not be liable for any indirect, incidental, special, consequential, or punitive damages resulting from your use or inability to use the service.",
     "terms.termination_title": "Termination",
     "terms.termination_content":
       "We reserve the right to terminate or suspend access to our service immediately, without prior notice, for conduct that we believe violates these Terms of Use or is harmful to other users, us, or third parties.",
@@ -448,11 +448,11 @@ export const translations = {
     // Content Policy
     "content_policy.title": "Content Policy",
     "content_policy.meta_description":
-      "Content Policy for lepakmasjid - Guidelines for submitting and sharing content.",
+      "Content Policy for LepakMasjid - Guidelines for submitting and sharing content.",
     "content_policy.last_updated": "Last updated: January 2024",
     "content_policy.introduction_title": "Introduction",
     "content_policy.introduction_content":
-      "This Content Policy outlines the guidelines for submitting and sharing content on lepakmasjid. By using our service, you agree to follow these guidelines.",
+      "This Content Policy outlines the guidelines for submitting and sharing content on LepakMasjid. By using our service, you agree to follow these guidelines.",
     "content_policy.acceptable_content_title": "Acceptable Content",
     "content_policy.acceptable_content_content": "We welcome content that:",
     "content_policy.acceptable_content_item1":
@@ -816,7 +816,7 @@ export const translations = {
 
     // Meta & SEO
     "meta.home_title":
-      "lepakmasjid - Cari Masjid dengan Kemudahan yang Anda Perlukan",
+      "LepakMasjid - Cari Masjid dengan Kemudahan yang Anda Perlukan",
     "meta.home_description":
       "Temui masjid di Malaysia dengan WiFi, ruang kerja, ciri aksesibiliti, dan banyak lagi. Direktori masjid dikuasakan komuniti untuk pelancong dan pekerja jarak jauh.",
     "meta.submit_title": "Hantar Masjid",
@@ -825,12 +825,12 @@ export const translations = {
     // About Page
     "about.title": "Tentang Kami",
     "about.meta_description":
-      "Ketahui tentang lepakmasjid, direktori masjid dikuasakan komuniti di Malaysia.",
+      "Ketahui tentang LepakMasjid, direktori masjid dikuasakan komuniti di Malaysia.",
     "about.subtitle":
       "Membina direktori masjid yang komprehensif dan didorong komuniti di seluruh Malaysia.",
     "about.mission_title": "Misi Kami",
     "about.mission_content":
-      "lepakmasjid bertujuan membantu umat Islam di Malaysia dan pelawat mencari masjid dengan kemudahan yang mereka perlukan. Sama ada anda mencari WiFi untuk kerja jarak jauh, ciri aksesibiliti, kemudahan sukan, atau hanya tempat yang tenang untuk solat, direktori yang dikekalkan komuniti kami memudahkan anda menemui masjid yang sempurna untuk keperluan anda.",
+      "LepakMasjid bertujuan membantu umat Islam di Malaysia dan pelawat mencari masjid dengan kemudahan yang mereka perlukan. Sama ada anda mencari WiFi untuk kerja jarak jauh, ciri aksesibiliti, kemudahan sukan, atau hanya tempat yang tenang untuk solat, direktori yang dikekalkan komuniti kami memudahkan anda menemui masjid yang sempurna untuk keperluan anda.",
     "about.values_title": "Nilai Kami",
     "about.community_title": "Didorong Komuniti",
     "about.community_content":
@@ -840,7 +840,7 @@ export const translations = {
       "Kami mengutamakan menjadikan maklumat tentang kemudahan masjid boleh diakses oleh semua orang, termasuk mereka yang mempunyai keperluan mobiliti dan keperluan khas.",
     "about.open_source_title": "Sumber Terbuka",
     "about.open_source_content":
-      "lepakmasjid adalah sumber terbuka, membolehkan komuniti menyumbang, memperbaiki, dan mengekalkan platform untuk manfaat semua orang.",
+      "LepakMasjid adalah sumber terbuka, membolehkan komuniti menyumbang, memperbaiki, dan mengekalkan platform untuk manfaat semua orang.",
     "about.how_it_works_title": "Bagaimana Ia Berfungsi",
     "about.how_it_works_content":
       "Ahli komuniti menghantar maklumat tentang masjid yang mereka tahu, termasuk kemudahan, kemudahan, dan aktiviti. Pasukan moderator kami menyemak penyerahan untuk memastikan ketepatan sebelum diterbitkan. Pendekatan kolaboratif ini memastikan direktori kami kekal terkini dan komprehensif.",
@@ -860,11 +860,11 @@ export const translations = {
     // Privacy Policy
     "privacy.title": "Dasar Privasi",
     "privacy.meta_description":
-      "Dasar Privasi untuk lepakmasjid - Ketahui bagaimana kami melindungi maklumat peribadi anda.",
+      "Dasar Privasi untuk LepakMasjid - Ketahui bagaimana kami melindungi maklumat peribadi anda.",
     "privacy.last_updated": "Kemaskini terakhir: Januari 2024",
     "privacy.introduction_title": "Pengenalan",
     "privacy.introduction_content":
-      "Di lepakmasjid, kami komited untuk melindungi privasi anda. Dasar Privasi ini menerangkan bagaimana kami mengumpul, menggunakan, dan melindungi maklumat peribadi anda apabila anda menggunakan perkhidmatan kami.",
+      "Di LepakMasjid, kami komited untuk melindungi privasi anda. Dasar Privasi ini menerangkan bagaimana kami mengumpul, menggunakan, dan melindungi maklumat peribadi anda apabila anda menggunakan perkhidmatan kami.",
     "privacy.data_collection_title": "Maklumat yang Kami Kumpul",
     "privacy.data_collection_content":
       "Kami mengumpul maklumat yang anda berikan terus kepada kami, termasuk:",
@@ -903,14 +903,14 @@ export const translations = {
     // Terms of Use
     "terms.title": "Terma Penggunaan",
     "terms.meta_description":
-      "Terma Penggunaan untuk lepakmasjid - Baca terma dan syarat kami.",
+      "Terma Penggunaan untuk LepakMasjid - Baca terma dan syarat kami.",
     "terms.last_updated": "Kemaskini terakhir: Januari 2024",
     "terms.acceptance_title": "Penerimaan Terma",
     "terms.acceptance_content":
-      "Dengan mengakses dan menggunakan lepakmasjid, anda menerima dan bersetuju untuk terikat dengan terma dan peruntukan perjanjian ini. Jika anda tidak bersetuju dengan terma ini, sila jangan gunakan perkhidmatan kami.",
+      "Dengan mengakses dan menggunakan LepakMasjid, anda menerima dan bersetuju untuk terikat dengan terma dan peruntukan perjanjian ini. Jika anda tidak bersetuju dengan terma ini, sila jangan gunakan perkhidmatan kami.",
     "terms.use_license_title": "Lesen Penggunaan",
     "terms.use_license_content":
-      "Kebenaran diberikan untuk menggunakan lepakmasjid secara sementara untuk kegunaan peribadi, bukan komersial. Lesen ini tidak termasuk:",
+      "Kebenaran diberikan untuk menggunakan LepakMasjid secara sementara untuk kegunaan peribadi, bukan komersial. Lesen ini tidak termasuk:",
     "terms.use_license_item1":
       "Mengubah suai atau menyalin bahan untuk tujuan komersial",
     "terms.use_license_item2":
@@ -931,16 +931,16 @@ export const translations = {
     "terms.user_conduct_item5": "Meniru sebarang orang atau entiti",
     "terms.content_submission_title": "Penyerahan Kandungan",
     "terms.content_submission_content":
-      "Dengan menghantar kandungan ke lepakmasjid, anda memberikan kami lesen bukan eksklusif, bebas royalti untuk menggunakan, mengubah suai, dan memaparkan penyerahan anda. Anda mewakili bahawa anda mempunyai hak untuk menghantar kandungan sedemikian dan bahawa ia tidak melanggar sebarang hak pihak ketiga.",
+      "Dengan menghantar kandungan ke LepakMasjid, anda memberikan kami lesen bukan eksklusif, bebas royalti untuk menggunakan, mengubah suai, dan memaparkan penyerahan anda. Anda mewakili bahawa anda mempunyai hak untuk menghantar kandungan sedemikian dan bahawa ia tidak melanggar sebarang hak pihak ketiga.",
     "terms.intellectual_property_title": "Harta Intelek",
     "terms.intellectual_property_content":
-      "Semua kandungan di lepakmasjid, termasuk teks, grafik, logo, dan perisian, adalah harta lepakmasjid atau pembekal kandungannya dan dilindungi oleh undang-undang hak cipta dan harta intelek lain.",
+      "Semua kandungan di LepakMasjid, termasuk teks, grafik, logo, dan perisian, adalah harta LepakMasjid atau pembekal kandungannya dan dilindungi oleh undang-undang hak cipta dan harta intelek lain.",
     "terms.disclaimer_title": "Penafian",
     "terms.disclaimer_content":
-      'Maklumat di lepakmasjid disediakan atas dasar "sebagaimana adanya". Kami tidak memberikan jaminan, dinyatakan atau tersirat, mengenai ketepatan, kebolehpercayaan, atau ketersediaan maklumat yang disediakan.',
+      'Maklumat di LepakMasjid disediakan atas dasar "sebagaimana adanya". Kami tidak memberikan jaminan, dinyatakan atau tersirat, mengenai ketepatan, kebolehpercayaan, atau ketersediaan maklumat yang disediakan.',
     "terms.limitation_liability_title": "Had Liabiliti",
     "terms.limitation_liability_content":
-      "lepakmasjid tidak akan bertanggungjawab untuk sebarang kerosakan tidak langsung, insidental, khas, akibat, atau hukuman yang disebabkan oleh penggunaan atau ketidakupayaan anda untuk menggunakan perkhidmatan.",
+      "LepakMasjid tidak akan bertanggungjawab untuk sebarang kerosakan tidak langsung, insidental, khas, akibat, atau hukuman yang disebabkan oleh penggunaan atau ketidakupayaan anda untuk menggunakan perkhidmatan.",
     "terms.termination_title": "Penamatan",
     "terms.termination_content":
       "Kami berhak untuk menamatkan atau menggantung akses kepada perkhidmatan kami dengan segera, tanpa notis terlebih dahulu, untuk tingkah laku yang kami percaya melanggar Terma Penggunaan ini atau memudaratkan pengguna lain, kami, atau pihak ketiga.",
@@ -954,11 +954,11 @@ export const translations = {
     // Content Policy
     "content_policy.title": "Dasar Kandungan",
     "content_policy.meta_description":
-      "Dasar Kandungan untuk lepakmasjid - Garis panduan untuk menghantar dan berkongsi kandungan.",
+      "Dasar Kandungan untuk LepakMasjid - Garis panduan untuk menghantar dan berkongsi kandungan.",
     "content_policy.last_updated": "Kemaskini terakhir: Januari 2024",
     "content_policy.introduction_title": "Pengenalan",
     "content_policy.introduction_content":
-      "Dasar Kandungan ini menggariskan garis panduan untuk menghantar dan berkongsi kandungan di lepakmasjid. Dengan menggunakan perkhidmatan kami, anda bersetuju untuk mengikuti garis panduan ini.",
+      "Dasar Kandungan ini menggariskan garis panduan untuk menghantar dan berkongsi kandungan di LepakMasjid. Dengan menggunakan perkhidmatan kami, anda bersetuju untuk mengikuti garis panduan ini.",
     "content_policy.acceptable_content_title": "Kandungan yang Diterima",
     "content_policy.acceptable_content_content":
       "Kami mengalu-alukan kandungan yang:",
