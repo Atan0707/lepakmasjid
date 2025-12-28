@@ -1,7 +1,8 @@
-import { useState, useEffect } from 'react';
-import { MosqueMap } from './MosqueMap';
+import { useState, useEffect, useRef } from 'react';
+import { MosqueMap, type MosqueMapRef } from './MosqueMap';
 import type { Mosque } from '@/types';
-import { useNavigate } from 'react-router-dom';
+import { Button } from '@/components/ui/button';
+import { Navigation, Loader2 } from 'lucide-react';
 
 interface MapViewProps {
   mosques: Mosque[];
@@ -9,40 +10,115 @@ interface MapViewProps {
 }
 
 export const MapView = ({ mosques, className }: MapViewProps) => {
-  const navigate = useNavigate();
   const [userLocation, setUserLocation] = useState<[number, number] | null>(null);
+  const [isLocating, setIsLocating] = useState(false);
+  const [isInitialLocationLoading, setIsInitialLocationLoading] = useState(true);
+  const [isZooming, setIsZooming] = useState(false);
+  const mapRef = useRef<MosqueMapRef | null>(null);
 
   useEffect(() => {
-    // Try to get user location
+    // Try to get user location on mount
     if (navigator.geolocation) {
+      setIsInitialLocationLoading(true);
       navigator.geolocation.getCurrentPosition(
         (position) => {
           setUserLocation([position.coords.latitude, position.coords.longitude]);
+          setIsInitialLocationLoading(false);
         },
         () => {
           // User denied or error getting location
           setUserLocation(null);
+          setIsInitialLocationLoading(false);
         }
       );
+    } else {
+      setIsInitialLocationLoading(false);
     }
   }, []);
 
-  const handleMarkerClick = (mosque: Mosque) => {
-    navigate(`/mosque/${mosque.id}`);
+  const handleGoToMyLocation = () => {
+    if (userLocation) {
+      // If we already have location, just fly to it
+      setIsZooming(true);
+      mapRef.current?.flyToUserLocation();
+      // Reset zooming state after animation duration (1 second)
+      setTimeout(() => {
+        setIsZooming(false);
+      }, 1000);
+    } else {
+      // Request location again
+      setIsLocating(true);
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          (position) => {
+            const newLocation: [number, number] = [
+              position.coords.latitude,
+              position.coords.longitude,
+            ];
+            setUserLocation(newLocation);
+            setIsLocating(false);
+            setIsZooming(true);
+            // Small delay to ensure map is ready
+            setTimeout(() => {
+              mapRef.current?.flyToUserLocation();
+              // Reset zooming state after animation duration
+              setTimeout(() => {
+                setIsZooming(false);
+              }, 1000);
+            }, 100);
+          },
+          () => {
+            setIsLocating(false);
+            // Could show a toast/alert here
+          }
+        );
+      }
+    }
   };
 
   const center = userLocation || (mosques.length > 0 
     ? [mosques[0].lat, mosques[0].lng] as [number, number]
     : [3.1390, 101.6869] as [number, number]); // Default to KL
 
+  // Zoom level: 15 for neighborhood level (good for viewing nearby mosques)
+  // 13-14 for city level, 16+ for street level
+  const zoom = userLocation ? 15 : 11;
+
   return (
-    <div className={className}>
+    <div className={`relative ${className}`}>
       <MosqueMap
+        ref={mapRef}
         mosques={mosques}
         center={center}
-        zoom={userLocation ? 13 : 11}
-        onMarkerClick={handleMarkerClick}
+        zoom={zoom}
+        userLocation={userLocation}
+        prioritizeUserLocation={!!userLocation}
       />
+      {/* Floating "My Location" button */}
+      <Button
+        onClick={handleGoToMyLocation}
+        size="icon"
+        variant="secondary"
+        className="absolute bottom-4 right-4 z-[1000] shadow-lg hover:shadow-xl transition-shadow"
+        aria-label="Go to my location"
+        disabled={isLocating || isZooming}
+      >
+        {(isLocating || isZooming) ? (
+          <Loader2 className="h-5 w-5 animate-spin" />
+        ) : (
+          <Navigation className="h-5 w-5" />
+        )}
+      </Button>
+      
+      {/* Loading overlay for initial location fetch */}
+      {isInitialLocationLoading && (
+        <div className="absolute inset-0 bg-background/50 backdrop-blur-sm z-[999] flex items-center justify-center rounded-lg">
+          <div className="flex flex-col items-center gap-2">
+            <Loader2 className="h-8 w-8 animate-spin text-primary" />
+            <p className="text-sm text-muted-foreground">Getting your location...</p>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
