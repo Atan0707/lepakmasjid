@@ -35,7 +35,15 @@ const Explore = () => {
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState(searchParams.get('q') || '');
   const [selectedState, setSelectedState] = useState(searchParams.get('state') || '');
-  const [selectedAmenities, setSelectedAmenities] = useState<string[]>([]);
+  
+  // Initialize amenities from URL params
+  const [selectedAmenities, setSelectedAmenities] = useState<string[]>(() => {
+    const amenitiesParam = searchParams.get('amenities');
+    if (amenitiesParam) {
+      return amenitiesParam.split(',').filter(Boolean);
+    }
+    return [];
+  });
   
   // Initialize view mode from localStorage or default to 'grid'
   const [viewMode, setViewMode] = useState<'grid' | 'list' | 'map'>(() => {

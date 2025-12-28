@@ -1,7 +1,9 @@
 import { Search, MapPin, Filter } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { useTranslation } from '@/hooks/use-translation';
+import { useAmenities } from '@/hooks/use-amenities';
 
 interface HeroSectionProps {
   searchQuery: string;
@@ -11,10 +13,32 @@ interface HeroSectionProps {
 
 const HeroSection = ({ searchQuery, onSearchChange, onSearch }: HeroSectionProps) => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+  const { data: amenities = [] } = useAmenities();
   
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     onSearch();
+  };
+
+  // Map filter display names to amenity keys
+  const filterMap: Record<string, string> = {
+    'WiFi': 'wifi',
+    'Working Space': 'working_space',
+    'OKU Friendly': 'oku_access',
+    'Parking': 'parking',
+  };
+
+  const handleFilterClick = (filterName: string) => {
+    const amenityKey = filterMap[filterName];
+    if (!amenityKey) return;
+
+    // Find the amenity by key
+    const amenity = amenities.find(a => a.key === amenityKey);
+    if (!amenity) return;
+
+    // Navigate to explore page with the amenity filter
+    navigate(`/explore?amenities=${amenity.id}`);
   };
 
   return (
@@ -63,12 +87,13 @@ const HeroSection = ({ searchQuery, onSearchChange, onSearch }: HeroSectionProps
           </form>
 
           {/* Quick filters */}
-          <div className="flex flex-wrap justify-center gap-2 mt-6 animate-fade-up" style={{ animationDelay: '0.5s' }}>
-            <span className="text-primary-foreground/60 text-sm">{t('hero.popular')}</span>
+          <div className="flex flex-wrap justify-center items-center gap-2 mt-6 animate-fade-up" style={{ animationDelay: '0.5s' }}>
+            <span className="text-primary-foreground/60 text-sm w-full sm:w-auto text-center sm:text-left">{t('hero.popular')}</span>
             {['WiFi', 'Working Space', 'OKU Friendly', 'Parking'].map((filter) => (
               <button
                 key={filter}
-                className="px-3 py-1.5 rounded-full bg-primary-foreground/10 hover:bg-primary-foreground/20 text-primary-foreground/90 text-sm font-medium transition-colors"
+                onClick={() => handleFilterClick(filter)}
+                className="px-3 py-1.5 rounded-full bg-primary-foreground/10 hover:bg-primary-foreground/20 active:bg-primary-foreground/30 text-primary-foreground/90 text-sm font-medium transition-colors cursor-pointer focus:outline-none focus:ring-2 focus:ring-primary-foreground/50 focus:ring-offset-2 focus:ring-offset-primary"
               >
                 {filter}
               </button>
