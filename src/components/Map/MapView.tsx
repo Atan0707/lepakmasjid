@@ -85,41 +85,61 @@ export const MapView = ({ mosques, className }: MapViewProps) => {
   const zoom = userLocation ? 15 : 11;
 
   return (
-    <div className={`relative ${className}`}>
-      <MosqueMap
-        ref={mapRef}
-        mosques={mosques}
-        center={center}
-        zoom={zoom}
-        userLocation={userLocation}
-        prioritizeUserLocation={!!userLocation}
-      />
-      {/* Floating "My Location" button */}
-      <Button
-        onClick={handleGoToMyLocation}
-        size="icon"
-        variant="secondary"
-        className="absolute bottom-4 right-4 z-[1000] shadow-lg hover:shadow-xl transition-shadow"
-        aria-label="Go to my location"
-        disabled={isLocating || isZooming}
-      >
-        {(isLocating || isZooming) ? (
-          <Loader2 className="h-5 w-5 animate-spin" />
-        ) : (
-          <Navigation className="h-5 w-5" />
-        )}
-      </Button>
-      
-      {/* Loading overlay for initial location fetch */}
-      {isInitialLocationLoading && (
-        <div className="absolute inset-0 bg-background/50 backdrop-blur-sm z-[999] flex items-center justify-center rounded-lg">
-          <div className="flex flex-col items-center gap-2">
-            <Loader2 className="h-8 w-8 animate-spin text-primary" />
-            <p className="text-sm text-muted-foreground">Getting your location...</p>
+    <>
+      {/* CSS to ensure Leaflet elements stay below filter sidebar (z-50) */}
+      <style>{`
+        .leaflet-container {
+          z-index: 10 !important;
+        }
+        .leaflet-popup,
+        .leaflet-popup-content-wrapper,
+        .leaflet-popup-tip {
+          z-index: 45 !important;
+        }
+        .leaflet-control {
+          z-index: 45 !important;
+        }
+        .leaflet-top,
+        .leaflet-bottom {
+          z-index: 45 !important;
+        }
+      `}</style>
+      <div className={`relative z-10 ${className}`}>
+        <MosqueMap
+          ref={mapRef}
+          mosques={mosques}
+          center={center}
+          zoom={zoom}
+          userLocation={userLocation}
+          prioritizeUserLocation={!!userLocation}
+        />
+        {/* Floating "My Location" button */}
+        <Button
+          onClick={handleGoToMyLocation}
+          size="icon"
+          variant="secondary"
+          className="absolute bottom-4 right-4 z-[60] shadow-lg hover:shadow-xl transition-shadow"
+          aria-label="Go to my location"
+          disabled={isLocating || isZooming}
+        >
+          {(isLocating || isZooming) ? (
+            <Loader2 className="h-5 w-5 animate-spin" />
+          ) : (
+            <Navigation className="h-5 w-5" />
+          )}
+        </Button>
+        
+        {/* Loading overlay for initial location fetch */}
+        {isInitialLocationLoading && (
+          <div className="absolute inset-0 bg-background/50 backdrop-blur-sm z-[60] flex items-center justify-center rounded-lg">
+            <div className="flex flex-col items-center gap-2">
+              <Loader2 className="h-8 w-8 animate-spin text-primary" />
+              <p className="text-sm text-muted-foreground">Getting your location...</p>
+            </div>
           </div>
-        </div>
-      )}
-    </div>
+        )}
+      </div>
+    </>
   );
 };
 
