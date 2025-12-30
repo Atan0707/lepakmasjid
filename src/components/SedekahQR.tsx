@@ -25,7 +25,6 @@ const SedekahQR: React.FC<SedekahQRProps> = ({ masjidName }) => {
       try {
         const data = await sedekahApi.getInstitutions();
 
-        // Find the mosque with matching slug
         const mosque = data.institutions.find(
           (inst: any) => inst.slug === slug
         );
