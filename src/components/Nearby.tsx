@@ -6,6 +6,7 @@ import {
   ChevronDown,
   ChevronUp,
   ExternalLink,
+  Bus,
 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -19,7 +20,7 @@ interface NearbyProps {
 
 interface Place {
   id: number;
-  type: "restaurant" | "mall";
+  type: "restaurant" | "mall" | "transport";
   name: string;
   lat: number;
   lng: number;
@@ -27,7 +28,7 @@ interface Place {
 
 interface RawPlace {
   id: number;
-  type: "restaurant" | "mall" | "unknown";
+  type: "restaurant" | "mall" | "transport" | "unknown";
   name: string;
   lat: number;
   lng: number;
@@ -39,6 +40,7 @@ const Nearby: React.FC<NearbyProps> = ({ longitude, latitude }) => {
   const [error, setError] = useState<string | null>(null);
   const [showAllRestaurants, setShowAllRestaurants] = useState(false);
   const [showAllMalls, setShowAllMalls] = useState(false);
+  const [showAllTransport, setShowAllTransport] = useState(false);
 
   useEffect(() => {
     const fetchOSM = async () => {
@@ -46,46 +48,95 @@ const Nearby: React.FC<NearbyProps> = ({ longitude, latitude }) => {
         setIsLoading(true);
         setError(null);
 
-        const url = `https://overpass-api.de/api/interpreter?data=
-          [out:json];
-          (
-            node["amenity"="restaurant"]["diet:halal"="yes"](around:5000,${latitude},${longitude});
-            node["amenity"="restaurant"]["halal"="yes"](around:5000,${latitude},${longitude});
-            node["shop"="mall"](around:5000,${latitude},${longitude});
-          );
-          out center tags;
-        `;
+        const query = `
+[out:json];
+(
+  /* Halal restaurants */
+  node["amenity"="restaurant"]["diet:halal"="yes"](around:5000,${latitude},${longitude});
+  node["amenity"="restaurant"]["halal"="yes"](around:5000,${latitude},${longitude});
+
+  /* Malls */
+  node["shop"="mall"](around:5000,${latitude},${longitude});
+
+  /* Bus stations */
+  node["amenity"="bus_station"](around:5000,${latitude},${longitude});
+
+  /* Public transport stations (modern tagging) */
+  node["public_transport"="station"](around:5000,${latitude},${longitude});
+  way["public_transport"="station"](around:5000,${latitude},${longitude});
+  relation["public_transport"="station"](around:5000,${latitude},${longitude});
+
+  /* Railway stations by type */
+  node["railway"="station"]["station"="subway"](around:5000,${latitude},${longitude});      /* MRT */
+  node["railway"="station"]["station"="light_rail"](around:5000,${latitude},${longitude}); /* LRT */
+  node["railway"="station"]["station"="train"](around:5000,${latitude},${longitude});      /* KTM */
+
+  /* Stops & entrances */
+  node["railway"="tram_stop"](around:5000,${latitude},${longitude});
+  node["railway"="subway_entrance"](around:5000,${latitude},${longitude});
+);
+out center tags;
+`;
+
+        const url =
+          "https://overpass-api.de/api/interpreter?data=" +
+          encodeURIComponent(query);
 
         const res = await fetch(url);
         const data = await res.json();
 
+        console.log(data.elements);
+
         const fetchedPlaces: RawPlace[] = data.elements.map((el: any) => {
-          const tags = el.tags || {};
-          return {
-            id: el.id,
-            type:
-              tags.amenity === "restaurant"
-                ? "restaurant"
-                : tags.shop === "mall"
-                  ? "mall"
-                  : "unknown",
-            name: tags.name ?? "Unnamed",
-            lat: el.lat ?? el.center?.lat,
-            lng: el.lon ?? el.center?.lon,
-          };
-        });
+  const tags = el.tags || {};
+
+  let type: RawPlace["type"] = "unknown";
+
+  // 🍽️ Restaurant
+  if (tags.amenity === "restaurant") {
+    type = "restaurant";
+
+  // 🏬 Mall
+  } else if (tags.shop === "mall") {
+    type = "mall";
+
+  // 🚉 Transport (bus, MRT, LRT, train)
+  } else if (
+    tags.amenity === "bus_station" ||
+    tags.highway === "bus_stop" ||
+    tags.public_transport === "station" ||
+    tags.railway === "tram_stop" ||
+    tags.railway === "subway_entrance" ||
+    (tags.railway === "station" &&
+      ["subway", "light_rail", "train"].includes(tags.station))
+  ) {
+    type = "transport";
+  }
+
+  return {
+    id: el.id,
+    type,
+    name: tags.name ?? "Unnamed",
+    lat: el.lat ?? el.center?.lat,
+    lng: el.lon ?? el.center?.lon,
+  };
+});
+
 
         setPlaces(
           fetchedPlaces.filter((p): p is Place => p.type !== "unknown")
         );
+
+
       } catch (err) {
         setError("Failed to load nearby places");
         console.error("Error fetching nearby places:", err);
       } finally {
         setIsLoading(false);
       }
-    };
 
+    };
+    
     if (longitude && latitude) {
       fetchOSM();
     }
@@ -93,6 +144,7 @@ const Nearby: React.FC<NearbyProps> = ({ longitude, latitude }) => {
 
   const restaurants = places.filter((p) => p.type === "restaurant");
   const malls = places.filter((p) => p.type === "mall");
+  const transport = places.filter((p) => p.type === "transport");
 
   if (isLoading) {
     return (
@@ -148,7 +200,9 @@ const Nearby: React.FC<NearbyProps> = ({ longitude, latitude }) => {
                     key={restaurant.id}
                     className="p-3 rounded-lg border border-border bg-card hover:bg-accent/50 transition-colors"
                   >
-                    <p className="text-sm font-medium mb-2">{restaurant.name}</p>
+                    <p className="text-sm font-medium mb-2">
+                      {restaurant.name}
+                    </p>
                     <button
                       onClick={() => {
                         const url = `https://www.google.com/maps/search/?api=1&query=${restaurant.lat},${restaurant.lng}`;
@@ -231,6 +285,61 @@ const Nearby: React.FC<NearbyProps> = ({ longitude, latitude }) => {
                     <>
                       <ChevronDown className="h-3 w-3 mr-1" />
                       See All ({malls.length - 5} more)
+                    </>
+                  )}
+                </Button>
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* Public Transport */}
+        {transport.length > 0 && (
+          <div className="space-y-3">
+            <div className="flex items-center gap-2">
+              <Bus className="h-4 w-4 text-primary" />
+              <h3 className="font-semibold text-sm">Public Transport</h3>
+              <Badge variant="secondary" className="ml-auto">
+                {transport.length}
+              </Badge>
+            </div>
+            <div className="space-y-2">
+              {(showAllTransport ? transport : transport.slice(0, 5)).map(
+                (station) => (
+                  <div
+                    key={station.id}
+                    className="p-3 rounded-lg border border-border bg-card hover:bg-accent/50 transition-colors"
+                  >
+                    <p className="text-sm font-medium mb-2">{station.name}</p>
+                    <button
+                      onClick={() => {
+                        const url = `https://www.google.com/maps/search/?api=1&query=${station.lat},${station.lng}`;
+                        window.open(url, "_blank");
+                      }}
+                      className="flex items-center gap-1 text-xs text-primary hover:underline transition-all"
+                    >
+                      <ExternalLink className="h-3 w-3" />
+                      <span>Open in Google Maps</span>
+                    </button>
+                  </div>
+                )
+              )}
+              {transport.length > 5 && (
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={() => setShowAllTransport(!showAllTransport)}
+                  className="w-full text-xs"
+                >
+                  {showAllTransport ? (
+                    <>
+                      <ChevronUp className="h-3 w-3 mr-1" />
+                      Show Less
+                    </>
+                  ) : (
+                    <>
+                      <ChevronDown className="h-3 w-3 mr-1" />
+                      See All ({transport.length - 5} more)
                     </>
                   )}
                 </Button>
