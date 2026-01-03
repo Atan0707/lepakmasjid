@@ -112,7 +112,7 @@ This serves the production build locally for testing.
 ```
 lepakmasjid/
 ├── public/                 # Static assets
-│   ├── _headers           # Cloudflare Pages headers
+│   ├── _headers           # Headers configuration
 │   ├── _redirects         # Client-side routing redirects
 │   └── ...
 ├── scripts/               # Node.js setup and utility scripts
@@ -195,7 +195,6 @@ lepakmasjid/
 │   └── main.tsx          # Application entry point
 ├── .docs/                # Documentation
 │   ├── POCKETBASE_SETUP.md
-│   ├── CLOUDFLARE_DEPLOYMENT.md
 │   └── ...
 ├── components.json       # shadcn-ui configuration
 ├── tailwind.config.ts    # Tailwind CSS configuration
@@ -429,54 +428,6 @@ The application connects to a deployed PocketBase instance at `pb.muazhazali.me`
 For detailed setup instructions, see:
 
 - [PocketBase Setup Guide](./.docs/POCKETBASE_SETUP.md) - Detailed PocketBase configuration
-- [Cloudflare Deployment Guide](./.docs/CLOUDFLARE_DEPLOYMENT.md) - Step-by-step guide to deploy to Cloudflare Pages
-
-## Deployment
-
-### Cloudflare Pages Deployment
-
-This application is designed to be deployed on Cloudflare Pages, a JAMstack platform that provides free hosting with global CDN, automatic deployments, and custom domain support.
-
-#### Quick Start
-
-1. **Push code to Git** (GitHub/GitLab/Bitbucket)
-
-2. **Connect to Cloudflare Pages** via dashboard
-   - Go to [dash.cloudflare.com](https://dash.cloudflare.com)
-   - Navigate to **Workers & Pages** → **Create application** → **Pages** → **Connect to Git**
-
-3. **Configure Build Settings**:
-   - **Build command**: `pnpm build` (or `npm run build`)
-   - **Root directory**: `/` (or empty) ⚠️ **NOT `dist`!**
-   - **Build output directory**: `dist`
-   - **Framework preset**: `Vite` (or `None`)
-
-4. **Add Environment Variables**:
-   - `VITE_POCKETBASE_URL=https://pb.muazhazali.me`
-   - `VITE_APP_URL=https://your-site.pages.dev` (update after deployment)
-
-5. **Deploy!** (automatic on git push)
-
-#### Important Configuration Notes
-
-- **Root directory** = Where your source code is located (use `/` or leave empty)
-- **Build output directory** = Where Vite outputs built files (use `dist`)
-- **Deploy command** = Leave empty! Cloudflare automatically deploys from `dist`
-- The `public/_redirects` file is already configured for client-side routing
-
-#### Post-Deployment Steps
-
-1. **Update PocketBase CORS**: Add your Cloudflare Pages domain to allowed origins in PocketBase Admin UI → Settings → API
-
-2. **Update Google OAuth**: Add your domain's callback URL to Google Cloud Console OAuth settings
-
-3. **Set Custom Domain** (optional): Configure in Cloudflare Pages → Settings → Custom domains
-
-4. **Update Environment Variables**: After setting up custom domain, update `VITE_APP_URL` to your final domain
-
-For detailed deployment instructions, see:
-
-- [Cloudflare Deployment Guide](./.docs/CLOUDFLARE_DEPLOYMENT.md) - Complete step-by-step guide with troubleshooting
 
 ## Contributing
 
@@ -575,15 +526,13 @@ This project is licensed under the **AGPL v3** (GNU Affero General Public Licens
 
 See the [LICENSE](./LICENSE) file for details.
 
-## Acknowledgements
+## Cool Projects
 
-This project is inspired by:
-
-- **[sedekah.je](https://sedekah.je)** by [khairin chan](https://github.com/khrnchn/sedekah-je) - Inspiration for community-driven directory approach
-- **[getdoa.com](https://getdoa.com)** by [hazqeel](https://github.com/amaal-khayrat/getdoa) - Inspiration for Islamic community tools
-- **[pasarmalam.app](https://pasarmalam.app)** by [muaz](https://github.com/muazhazali/caripasarmalam) - Inspiration for location-based directory applications
-
-We are grateful to the open-source community and all the contributors who have made this project possible.
+- [sedekah.je](https://sedekah.je)
+- [getdoa.com](https://getdoa.com)
+- [waktusolat.app](https://waktusolat.app)
+- [pasarmalam.app](https://pasarmalam.app)
+- [kalori-api.my](https://kalori-api.my)
 
 ## Support
 
