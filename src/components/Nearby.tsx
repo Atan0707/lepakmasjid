@@ -24,6 +24,7 @@ interface Place {
   name: string;
   lat: number;
   lng: number;
+  distance: number; // Distance in kilometers
 }
 
 interface RawPlace {
@@ -33,6 +34,27 @@ interface RawPlace {
   lat: number;
   lng: number;
 }
+
+// Calculate distance between two coordinates using Haversine formula
+// Returns distance in kilometers
+const calculateDistance = (
+  lat1: number,
+  lon1: number,
+  lat2: number,
+  lon2: number
+): number => {
+  const R = 6371; // Earth's radius in kilometers
+  const dLat = ((lat2 - lat1) * Math.PI) / 180;
+  const dLon = ((lon2 - lon1) * Math.PI) / 180;
+  const a =
+    Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+    Math.cos((lat1 * Math.PI) / 180) *
+      Math.cos((lat2 * Math.PI) / 180) *
+      Math.sin(dLon / 2) *
+      Math.sin(dLon / 2);
+  const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+  return R * c;
+};
 
 const Nearby: React.FC<NearbyProps> = ({ longitude, latitude }) => {
   const [places, setPlaces] = useState<Place[]>([]);
@@ -83,11 +105,20 @@ out center tags;
           encodeURIComponent(query);
 
         const res = await fetch(url);
+        
+        if (!res.ok) {
+          throw new Error(`HTTP error! status: ${res.status}`);
+        }
+        
         const data = await res.json();
 
-        console.log(data.elements);
+        // Check if response is valid and has elements
+        if (!data || !Array.isArray(data.elements)) {
+          setPlaces([]);
+          return;
+        }
 
-        const fetchedPlaces: RawPlace[] = data.elements.map((el: any) => {
+        const fetchedPlaces = data.elements.map((el: any): RawPlace | null => {
   const tags = el.tags || {};
 
   let type: RawPlace["type"] = "unknown";
@@ -113,19 +144,33 @@ out center tags;
     type = "transport";
   }
 
+  const lat = el.lat ?? el.center?.lat;
+  const lng = el.lon ?? el.center?.lon;
+
+  // Only include places with valid coordinates
+  if (lat == null || lng == null) {
+    return null;
+  }
+
   return {
     id: el.id,
     type,
     name: tags.name ?? "Unnamed",
-    lat: el.lat ?? el.center?.lat,
-    lng: el.lon ?? el.center?.lon,
+    lat,
+    lng,
   };
-});
+}).filter((p): p is RawPlace => p !== null);
 
+        // Calculate distances and convert to Place with distance, then sort by distance
+        const placesWithDistance: Place[] = fetchedPlaces
+          .filter((p): p is Place => p.type !== "unknown")
+          .map((place) => ({
+            ...place,
+            distance: calculateDistance(latitude, longitude, place.lat, place.lng),
+          }))
+          .sort((a, b) => a.distance - b.distance); // Sort by nearest first
 
-        setPlaces(
-          fetchedPlaces.filter((p): p is Place => p.type !== "unknown")
-        );
+        setPlaces(placesWithDistance);
 
 
       } catch (err) {
@@ -137,8 +182,11 @@ out center tags;
 
     };
     
-    if (longitude && latitude) {
+    if (typeof longitude === "number" && typeof latitude === "number" && !isNaN(longitude) && !isNaN(latitude)) {
       fetchOSM();
+    } else {
+      setIsLoading(false);
+      setError("Invalid coordinates");
     }
   }, [longitude, latitude]);
 
@@ -200,9 +248,12 @@ out center tags;
                     key={restaurant.id}
                     className="p-3 rounded-lg border border-border bg-card hover:bg-accent/50 transition-colors"
                   >
-                    <p className="text-sm font-medium mb-2">
-                      {restaurant.name}
-                    </p>
+                    <div className="flex items-start justify-between mb-2">
+                      <p className="text-sm font-medium">{restaurant.name}</p>
+                      <Badge variant="outline" className="ml-2 text-xs">
+                        {restaurant.distance.toFixed(1)} km
+                      </Badge>
+                    </div>
                     <button
                       onClick={() => {
                         const url = `https://www.google.com/maps/search/?api=1&query=${restaurant.lat},${restaurant.lng}`;
@@ -256,7 +307,12 @@ out center tags;
                   key={mall.id}
                   className="p-3 rounded-lg border border-border bg-card hover:bg-accent/50 transition-colors"
                 >
-                  <p className="text-sm font-medium mb-2">{mall.name}</p>
+                  <div className="flex items-start justify-between mb-2">
+                    <p className="text-sm font-medium">{mall.name}</p>
+                    <Badge variant="outline" className="ml-2 text-xs">
+                      {mall.distance.toFixed(1)} km
+                    </Badge>
+                  </div>
                   <button
                     onClick={() => {
                       const url = `https://www.google.com/maps/search/?api=1&query=${mall.lat},${mall.lng}`;
@@ -310,7 +366,12 @@ out center tags;
                     key={station.id}
                     className="p-3 rounded-lg border border-border bg-card hover:bg-accent/50 transition-colors"
                   >
-                    <p className="text-sm font-medium mb-2">{station.name}</p>
+                    <div className="flex items-start justify-between mb-2">
+                      <p className="text-sm font-medium">{station.name}</p>
+                      <Badge variant="outline" className="ml-2 text-xs">
+                        {station.distance.toFixed(1)} km
+                      </Badge>
+                    </div>
                     <button
                       onClick={() => {
                         const url = `https://www.google.com/maps/search/?api=1&query=${station.lat},${station.lng}`;
