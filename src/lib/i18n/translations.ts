@@ -274,6 +274,8 @@ export const translations = {
     "filter.loading_amenities": "Loading amenities...",
     "filter.error_amenities": "Failed to load amenities",
     "filter.no_amenities": "No amenities available",
+    "filter.search_amenities": "Search amenities...",
+    "filter.no_amenities_found": "No amenities found",
 
     // Admin (continued)
     "admin.no_audit_logs": "No audit logs",
@@ -763,6 +765,8 @@ export const translations = {
     "filter.loading_amenities": "Memuatkan kemudahan...",
     "filter.error_amenities": "Gagal memuatkan kemudahan",
     "filter.no_amenities": "Tiada kemudahan tersedia",
+    "filter.search_amenities": "Cari kemudahan...",
+    "filter.no_amenities_found": "Tiada kemudahan dijumpai",
 
     // Admin
     "admin.no_pending_submissions": "Tiada penyerahan menunggu",
